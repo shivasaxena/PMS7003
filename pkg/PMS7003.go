@@ -17,7 +17,7 @@ const (
 
 type PMS7003Device struct {
 	serialDevice     string
-	mode             string // ACTIVE or PASSIVE
+	mode             string // ACTIVE or PASSIVE Make it Enum
 	serialConnection serial.Port
 }
 
@@ -74,6 +74,6 @@ func parseSensorValueFromBytes(rawBytes []byte) (sensorValue PMS7003SensorValue,
 	for i := 0; i < 30; i++ {
 		checksum += uint16(rawBytes[i])
 	}
-
+	//TODO: Validate checksum and throw an error???
 	return sensorValue, err
 }
