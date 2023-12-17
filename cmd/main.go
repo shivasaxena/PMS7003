@@ -8,14 +8,17 @@ import (
 
 func main() {
 
-	device, err := PMS7003.Open("/dev/ttyAMA0", "Active")
+	device, err := PMS7003.Open("/dev/ttyAMA0", PMS7003.ActiveMode)
 
 	if err != nil {
 		panic(err)
 	}
 
 	for i := 0; i < 10; i++ {
-		fmt.Println(device.Read())
+
+		value, _ := device.Read()
+
+		fmt.Println(value.PM25Atmospheric)
 	}
 
 	defer device.Close()

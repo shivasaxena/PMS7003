@@ -1,8 +1,7 @@
 package PMS7003
 
 import (
-	"bytes"
-	"encoding/binary"
+	"fmt"
 	"io"
 
 	"go.bug.st/serial"
@@ -11,14 +10,18 @@ import (
 type Mode string
 
 const (
-	Active  Mode = "ACTIVE"
-	Passive Mode = "PASSIVE"
+	ActiveMode  Mode = "ACTIVE"
+	PassiveMode      = "PASSIVE"
 )
 
 type PMS7003Device struct {
 	serialDevice     string
-	mode             string // ACTIVE or PASSIVE Make it Enum
+	mode             Mode
 	serialConnection serial.Port
+}
+
+func (m Mode) tring() string {
+	return fmt.Sprintf("%s", m)
 }
 
 const startByte1 byte = 0x42
@@ -29,7 +32,7 @@ var wakeUpCommandBytes []byte = []byte{startByte1, startByte2, 0xE4, 0x00, 0x01,
 
 // TODO: Make mode emum
 
-func Open(serialDevice string, mode string) (device PMS7003Device, err error) {
+func Open(serialDevice string, mode Mode) (device PMS7003Device, err error) {
 
 	device = PMS7003Device{serialDevice, mode, nil}
 	serialMode := &serial.Mode{
@@ -61,19 +64,4 @@ func (r *PMS7003Device) Read() (sensorValue PMS7003SensorValue, err error) {
 
 func (r *PMS7003Device) Close() {
 	r.serialConnection.Close()
-}
-
-func parseSensorValueFromBytes(rawBytes []byte) (sensorValue PMS7003SensorValue, err error) {
-	// The following document lists the trasmission format under
-	// Appendix I：PMS7003 transport protocol-Active Mode
-	// http://download.kamami.pl/p564008-PMS7003%20series%20data%20manua_English_V2.5.pdf
-
-	err = binary.Read(bytes.NewBuffer(rawBytes[2:]), binary.BigEndian, &sensorValue)
-
-	checksum := uint16(0)
-	for i := 0; i < 30; i++ {
-		checksum += uint16(rawBytes[i])
-	}
-	//TODO: Validate checksum and throw an error???
-	return sensorValue, err
 }
