@@ -16,7 +16,11 @@ func main() {
 
 	for i := 0; i < 10; i++ {
 
-		value, _ := device.Read()
+		value, err := device.Read()
+
+		if err != nil {
+			panic(err)
+		}
 
 		fmt.Println(value.PM25Atmospheric)
 	}

@@ -36,6 +36,8 @@ func parseSensorValueFromBytes(rawBytes []byte) (sensorValue PMS7003SensorValue,
 	for i := 0; i < 30; i++ {
 		checksum += uint16(rawBytes[i])
 	}
-	//TODO: Validate checksum and throw an error???
+	if checksum != sensorValue.Checksum {
+		err = fmt.Errorf("checksum mismatch on received data")
+	}
 	return sensorValue, err
 }
