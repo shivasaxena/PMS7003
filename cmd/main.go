@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	PMS7003 "github.com/shivasaxena/PMS7003/pkg"
+	PMS7003 "github.com/shivasaxena/PMS7003"
 )
 
 func main() {
