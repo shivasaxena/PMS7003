@@ -8,4 +8,4 @@ Based on the particle reading it can be used to determine the air quality index.
 
 
 
-
+// TODO: add how to guide
