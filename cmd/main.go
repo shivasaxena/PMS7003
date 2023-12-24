@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	device, err := PMS7003.Open("/dev/ttyAMA0", PMS7003.PassiveMode)
+	device, err := PMS7003.Open("/dev/ttyAMA0", PMS7003.ActiveMode)
 
 	if err != nil {
 		panic(err)
@@ -17,7 +17,7 @@ func main() {
 
 	defer device.Close()
 
-	device.WakeUp()
+	//device.WakeUp()
 	time.Sleep(10 * time.Second)
 	for i := 0; i < 5; i++ {
 
@@ -30,6 +30,6 @@ func main() {
 		fmt.Println(value.PM25Atmospheric)
 	}
 
-	device.Sleep()
+	//device.Sleep()
 
 }
