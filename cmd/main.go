@@ -2,19 +2,24 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	PMS7003 "github.com/shivasaxena/PMS7003"
 )
 
 func main() {
 
-	device, err := PMS7003.Open("/dev/ttyAMA0", PMS7003.ActiveMode)
+	device, err := PMS7003.Open("/dev/ttyAMA0", PMS7003.PassiveMode)
 
 	if err != nil {
 		panic(err)
 	}
 
-	for i := 0; i < 10; i++ {
+	defer device.Close()
+
+	device.WakeUp()
+	time.Sleep(10 * time.Second)
+	for i := 0; i < 5; i++ {
 
 		value, err := device.Read()
 
@@ -25,6 +30,6 @@ func main() {
 		fmt.Println(value.PM25Atmospheric)
 	}
 
-	defer device.Close()
+	device.Sleep()
 
 }
