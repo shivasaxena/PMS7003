@@ -3,6 +3,7 @@ package PMS7003
 import (
 	"fmt"
 	"io"
+	"log"
 
 	"go.bug.st/serial"
 )
@@ -11,17 +12,13 @@ type Mode string
 
 const (
 	ActiveMode  Mode = "ACTIVE"
-	PassiveMode      = "PASSIVE"
+	PassiveMode Mode = "PASSIVE"
 )
 
 type PMS7003Device struct {
 	serialDevice     string
 	mode             Mode
 	serialConnection serial.Port
-}
-
-func (m Mode) tring() string {
-	return fmt.Sprintf("%s", m)
 }
 
 const startByte1 byte = 0x42
@@ -40,7 +37,8 @@ func Open(serialDevice string, mode Mode) (device PMS7003Device, err error) {
 	}
 	stream, err := serial.Open(serialDevice, serialMode)
 	if err != nil {
-		panic("Serial Port did not open")
+		log.Println("unable to open serial connection.Please check device name and permissions are correct")
+		return device, err
 	}
 	device.serialConnection = stream
 

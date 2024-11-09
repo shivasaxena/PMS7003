@@ -1,6 +1,6 @@
 module github.com/shivasaxena/PMS7003
 
-go 1.21.1
+go 1.19
 
 require go.bug.st/serial v1.6.1
 
