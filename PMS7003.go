@@ -56,7 +56,6 @@ func Open(serialDevice string, mode Mode) (device PMS7003Device, err error) {
 
 func (r *PMS7003Device) Read() (sensorValue PMS7003SensorValue, err error) {
 
-	fmt.Printf("Device Initilized in %s Mode \n", r.mode)
 	var dat []byte
 
 	dat, err = readDataFromDevice(r)
