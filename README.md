@@ -4,6 +4,9 @@ A Go package for interfacing with the PMS7003 particulate matter sensor. The PMS
 
 This package provides a simple, typed interface to connect to the sensor and read air quality measurements. It works with any device that supports serial communication, such as Raspberry Pi, ESP32, or standard computers with USB-to-serial adapters.
 
+> **📚 A practical how-to-use guide and reference implementation for the project in [PMS7003 UI](https://github.com/shivasaxena/PMS7003-UI).** If you're looking to integrate the PMS7003 sensor into your own Go applications, [PMS7003 UI](https://github.com/shivasaxena/PMS7003-UI) demonstrates how to do it.
+
+![Application Demo](docs/static_files/screenshots/2025-10-20%2014-14-04.gif)
 ## Features
 
 - 📊 Read PM1.0, PM2.5, and PM10 concentrations (both CF=1 standard and atmospheric environment)
@@ -12,6 +15,8 @@ This package provides a simple, typed interface to connect to the sensor and rea
 - 💤 Sleep/Wake functionality to control sensor power consumption
 - ✅ Built-in checksum validation for data integrity
 - 🔌 Simple API with minimal dependencies
+
+
 
 ## Requirements
 
